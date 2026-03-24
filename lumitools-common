@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+CONFIG_FILE="${LUMITOOLS_CONFIG:-$HOME/.config/lumiverse-tools.conf}"
+
+# Defaults
+: "${LUMI_DIR:=$HOME/Lumiverse}"
+: "${TERMUX_HOME:=/data/data/com.termux/files/home}"
+: "${BACKUP_DIR:=$TERMUX_HOME/storage/shared/Download/Lumibackup}"
+
+# Load config file if present
+if [ -f "$CONFIG_FILE" ]; then
+  # shellcheck disable=SC1090
+  . "$CONFIG_FILE"
+fi
+
+# Re-apply defaults in case config omitted any values
+: "${LUMI_DIR:=$HOME/Lumiverse}"
+: "${TERMUX_HOME:=/data/data/com.termux/files/home}"
+: "${BACKUP_DIR:=$TERMUX_HOME/storage/shared/Download/Lumibackup}"
