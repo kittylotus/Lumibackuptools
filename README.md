@@ -41,6 +41,8 @@ bash install.sh
 source ~/.bashrc
 ```
 
+---
+
 ## 🛠 Usage
 ### Create a backup
 ```lumibackup```
@@ -65,16 +67,19 @@ You can also:
 ### Restore latest backup
 ```lumirestore latest```
 
+---
+
 # ⚙️ Config
 
 ## Config file location (edit if using in a different system):
 
-~/.config/lumiverse-tools.conf
+```~/.config/lumiverse-tools.conf```
 
-## Default:
+## Default (fine for termux):
 
-LUMI_DIR="$HOME/Lumiverse"
+```LUMI_DIR="$HOME/Lumiverse"
 TERMUX_HOME="/data/data/com.termux/files/home"
 BACKUP_DIR="$TERMUX_HOME/storage/shared/Download/Lumibackup"
+```
 
 You can edit this file to change where Lumiverse is located or where backups are stored.
