@@ -41,6 +41,7 @@ bash install.sh
 echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
+with this you don't need to manually edit bashrc in nano
 
 ---
 
