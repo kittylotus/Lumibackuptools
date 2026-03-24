@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 . "$SCRIPT_DIR/lumitools-common"
 
 if [ ! -d "$LUMI_DIR" ]; then
-  echo "Lumiverse folder not found at: $LUMI_DIR"
+  echo "Lumiverse folder not found at: $LUMI_DIR" >&2
   exit 1
 fi
 
@@ -22,7 +22,7 @@ resolve_backup_file() {
     local latest
     latest=$(ls -t "$BACKUP_DIR"/lumi_backup_*.tar.gz 2>/dev/null | head -n 1 || true)
     if [ -z "$latest" ]; then
-      echo "No backup files found."
+      echo "No backup files found." >&2
       exit 1
     fi
     printf '%s\n' "$latest"
@@ -39,7 +39,7 @@ resolve_backup_file() {
     return 0
   fi
 
-  echo "Backup file not found: $input"
+  echo "Backup file not found: $input" >&2
   exit 1
 }
 
@@ -47,34 +47,36 @@ list_backups() {
   local files=("$BACKUP_DIR"/lumi_backup_*.tar.gz)
 
   if [ ${#files[@]} -eq 0 ]; then
-    echo "No backup files found in:"
-    echo "$BACKUP_DIR"
+    echo "No backup files found in:" >&2
+    echo "$BACKUP_DIR" >&2
     exit 1
   fi
 
-  echo "Available backups:"
+  echo "Available backups:" >&2
   local i=1
   local f
   for f in "${files[@]}"; do
-    printf '  [%d] %s\n' "$i" "$(basename "$f")"
+    printf '  [%d] %s\n' "$i" "$(basename "$f")" >&2
     i=$((i + 1))
   done
 }
 
 prompt_for_backup() {
   local files=("$BACKUP_DIR"/lumi_backup_*.tar.gz)
+  local choice
+  local index
 
   list_backups
-  echo
+  echo >&2
   read -rp "Type a number, a filename, a full path, or 'latest': " choice
 
   if [[ "$choice" =~ ^[0-9]+$ ]]; then
-    local index=$((choice - 1))
+    index=$((choice - 1))
     if [ "$index" -ge 0 ] && [ "$index" -lt "${#files[@]}" ]; then
       printf '%s\n' "${files[$index]}"
       return 0
     fi
-    echo "Invalid selection: $choice"
+    echo "Invalid selection: $choice" >&2
     exit 1
   fi
 
@@ -88,7 +90,7 @@ else
 fi
 
 if [ ! -f "$BACKUP_FILE" ]; then
-  echo "Backup file not found: $BACKUP_FILE"
+  echo "Backup file not found: $BACKUP_FILE" >&2
   exit 1
 fi
 
@@ -113,4 +115,5 @@ tar -xzf "$BACKUP_FILE" -C "$LUMI_DIR"
 
 echo "Done."
 echo "Restored from:"
+echo "$BACKUP_FILE"
 echo "$BACKUP_FILE"
