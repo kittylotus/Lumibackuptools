@@ -64,10 +64,12 @@ You’ll see a list like:
 Then just type:
 1
 
-You can also: 
-
+## You can also: 
 ### Restore latest backup
 ```lumirestore latest```
+
+### Restore by filename
+```lumirestore lumi_backup_YYYY-MM-DD_HH-MM-SS.tar.gz```
 
 ---
 
