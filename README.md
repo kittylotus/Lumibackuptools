@@ -61,8 +61,7 @@ You’ll see a list like:
 [2] lumi_backup_2026-03-24_09-41-58.tar.gz
 ```
 
-Then just type:
-1
+Then just type the number.
 
 ## You can also: 
 ### Restore latest backup
