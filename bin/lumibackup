@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR/lumitools-common"
+
+STAMP="$(date +%Y-%m-%d_%H-%M-%S)"
+OUTFILE="${BACKUP_DIR}/lumi_backup_${STAMP}.tar.gz"
+
+if [ ! -d "$LUMI_DIR" ]; then
+  echo "Lumiverse folder not found at: $LUMI_DIR"
+  exit 1
+fi
+
+if [ ! -d "$TERMUX_HOME/storage/shared" ]; then
+  echo "Termux shared storage is not available."
+  echo "Run 'termux-setup-storage' in normal Termux first."
+  exit 1
+fi
+
+mkdir -p "$BACKUP_DIR"
+
+FILES=()
+
+if [ -d "$LUMI_DIR/data/db" ]; then
+  FILES+=("data/db")
+else
+  echo "Warning: missing $LUMI_DIR/data/db"
+fi
+
+if [ -f "$LUMI_DIR/data/lumiverse.identity" ]; then
+  FILES+=("data/lumiverse.identity")
+else
+  echo "Warning: missing $LUMI_DIR/data/lumiverse.identity"
+fi
+
+if [ -f "$LUMI_DIR/.env" ]; then
+  FILES+=(".env")
+else
+  echo "Warning: missing $LUMI_DIR/.env"
+fi
+
+if [ ${#FILES[@]} -eq 0 ]; then
+  echo "Nothing to back up."
+  exit 1
+fi
+
+echo "Using Lumiverse path: $LUMI_DIR"
+echo "Using backup path: $BACKUP_DIR"
+echo "Creating backup..."
+tar -czf "$OUTFILE" -C "$LUMI_DIR" "${FILES[@]}"
+
+echo "Done."
+echo "Backup saved to:"
+echo "$OUTFILE"
