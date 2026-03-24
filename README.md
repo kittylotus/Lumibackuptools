@@ -37,7 +37,8 @@ bash install.sh
 ```
 
 ## 🪐 If prompted to add the path to bashrc, run:
-```echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+```
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
@@ -55,7 +56,8 @@ Your backup will be saved to:
 
 You’ll see a list like:
 
-```[1] lumi_backup_2026-03-24_08-29-14.tar.gz
+```
+[1] lumi_backup_2026-03-24_08-29-14.tar.gz
 [2] lumi_backup_2026-03-24_09-41-58.tar.gz
 ```
 
@@ -77,7 +79,8 @@ You can also:
 
 ## Default (fine for termux):
 
-```LUMI_DIR="$HOME/Lumiverse"
+```
+LUMI_DIR="$HOME/Lumiverse"
 TERMUX_HOME="/data/data/com.termux/files/home"
 BACKUP_DIR="$TERMUX_HOME/storage/shared/Download/Lumibackup"
 ```
